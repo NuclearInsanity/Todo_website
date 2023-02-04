@@ -1,0 +1,72 @@
+{% include "header.html" %}
+
+  <body>
+    <main class="container">
+      <h1>Todo or not todo ✅</h1>
+    </main>
+
+  <div class="container">
+    <form method="post" action="/todos" data-tooltip="Go on! Type a todo" data-placement="bottom" >
+      {{ form.csrf_token }}
+      {{ form.todo.label }}
+      {{ form.todo }}
+
+      {% if form.todo.errors %}
+      <ul class="errors">
+                {% for error in form.todo.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+      {% endif %}
+
+      {{ form.due_date.label }}
+      {{ form.due_date }}
+      {% if form.due_date.errors %}
+      <ul class="errors">
+        {% for error in form.due_date.errors %}
+        <li> {{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {{ form.submit }}
+  </form>
+  </div>
+
+
+  <div class="container">
+    <h2><strong><u>NOW</u></strong></h2>
+  </div>
+  {% for todo in all_todos %}
+  {% if todo.todo_due_date == 'now' %}
+  <div class="container">
+    <h5>{{ todo.todo_item }}<br> <a href=" {{ url_for('delete_todo', todo_id=todo.id) }}" class="primary">✅</a> <a href=" {{ url_for('delete_todo', todo_id=todo.id) }}" class="primary">❌</a></h5>
+  </div>
+  {% endif %}
+  {% endfor %}
+
+  <div class="container">
+    <h2><strong><u>SOON</u></strong></h2>
+  </div>
+  {% for todo in all_todos %}
+  {% if todo.todo_due_date == 'soon' %}
+  <div class="container">
+    <h5>{{ todo.todo_item }}<br> <a href=" {{ url_for('delete_todo', todo_id=todo.id) }}" class="primary">✅</a><a href=" {{ url_for('delete_todo', todo_id=todo.id) }}" class="primary">❌</a></h5>
+  </div>
+  {% endif %}
+  {% endfor %}
+
+  <div class="container">
+    <h2><strong><u>LATER</u></strong></h2>
+  </div>
+  {% for todo in all_todos %}
+  {% if todo.todo_due_date == 'later' %}
+  <div class="container">
+    <h5>{{ todo.todo_item}} <br> <a  href=" {{ url_for('delete_todo', todo_id=todo.id) }}" class="primary">✅</a> <a href=" {{ url_for('delete_todo', todo_id=todo.id) }}" class="primary">❌</a></h5>
+  </div>
+  {% endif %}
+  {% endfor %}
+  <div class="container">
+  <a href=" {{url_for('logout')}}" role="button">Logout</a>
+  </div>
+  </body>
