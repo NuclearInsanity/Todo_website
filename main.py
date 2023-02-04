@@ -7,9 +7,10 @@ from wtforms.validators import DataRequired, Length, Email
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 import hashlib
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///todos.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite://todo.db")
 app.config['SECRET_KEY'] = "RBudY8Kem1lDlq9eTykb3kDQw7ge2wt1+tmrGpNdgYA"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
