@@ -55,8 +55,9 @@ class Users(UserMixin, db.Model):
 
 
 class Todos(db.Model):
+    __tablename__ = 'todos'
     id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.String(200), db.ForeignKey("users.id"))
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     todo_item = db.Column(db.String(200))
     todo_due_date = db.Column(db.String(200))
     author = relationship("Users", back_populates='todos')
