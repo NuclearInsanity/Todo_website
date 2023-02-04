@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash, abort, reque
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user
 from flask_wtf import FlaskForm
+from jinja2.utils import Markup
 from wtforms import StringField, SubmitField, PasswordField, RadioField
 from wtforms.validators import DataRequired, Length, Email
 from werkzeug.security import generate_password_hash, check_password_hash
